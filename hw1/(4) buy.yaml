@@ -1,0 +1,15 @@
+openapi: 3.0.1
+info:
+  title: Сервис оплаты
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+paths:
+  /payment:
+    post:
+      summary: Прием оплаты (для проведения транзакции вызывает внешний сервис)
+      description: Прием оплаты (для проведения транзакции вызывает внешний сервис)
+      responses:
+        '200':
+          description: OK

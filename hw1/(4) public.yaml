@@ -1,0 +1,44 @@
+openapi: 3.0.1
+info:
+  title: Сервис публикации
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+paths:
+  /content:
+    post:
+      summary: Публикация контента
+      description: Публикация контента
+      responses:
+        '200':
+          description: OK
+  /conditions:
+    get:
+      summary: Просмотр условий публикации, поиск
+      description: Просмотр условий публикации, поиск
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Регистрация нового пользователя.
+      description: Регистрация нового пользователя.
+      responses:
+        '200':
+          description: Пользователь зарегистрирован
+    delete:
+      summary: Удаление условий публикации
+      #operationId:
+#      parameters:
+#        -
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Изменение условий публикации
+#      operationId:
+#      parameters:
+#        -
+      responses:
+        '200':
+          description: OK
