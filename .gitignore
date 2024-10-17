@@ -1,3 +1,15 @@
-.idea/
 .~*
 *.bkp
+
+
+### IntelliJ IDEA ###
+**/.idea
+*.iws
+*.iml
+*.ipr
+
+### maven BUILD ###
+**/target/
+**/.m2/
+!.mvn/wrapper/maven-wrapper.jar
+
