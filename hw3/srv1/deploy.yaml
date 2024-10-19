@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srv1
+  labels:
+    app: srv1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: srv1
+  template:
+    metadata:
+      labels:
+        env: srv1
+    spec:
+      containers:
+        - name: srv1
+          image: slezkin71/microservice/srv1
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health/
+              port: 8000
+              httpHeaders:
+                - name: Custom-Header
+                  value: Awesome
+            initialDelaySeconds: 10
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /health/
+              port: 8000
+              httpHeaders:
+                - name: Custom-Header
+                  value: Awesome
+            initialDelaySeconds: 15
+            periodSeconds: 5
