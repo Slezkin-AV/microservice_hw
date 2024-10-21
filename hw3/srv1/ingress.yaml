@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: srv1-ingress
+  labels:
+    run: srv1
+spec:
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+                name: srv1
+                port:
+                  number: 8000
+          - path: /otusapp
+            pathType: Prefix
+            backend:
+              service:
+                name: srv1
+                port:
+                  number: 8000
