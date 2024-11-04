@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: srv1
+  name: srv1-deploy
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: srv1
+      app: srv1
   template:
     metadata:
       labels:
-        run: srv1
+        app: srv1
     spec:
       containers:
         - name: srv1

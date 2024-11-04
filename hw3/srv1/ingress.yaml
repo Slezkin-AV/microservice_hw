@@ -3,23 +3,16 @@ kind: Ingress
 metadata:
   name: srv1-ingress
   labels:
-    run: srv1
+    app: srv1
 spec:
   rules:
     - host: arch.homework
       http:
         paths:
-          - path: /health
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: srv1
-                port:
-                  number: 8000
-          - path: /otusapp
-            pathType: Prefix
-            backend:
-              service:
-                name: srv1
+                name: srv1-service
                 port:
                   number: 8000

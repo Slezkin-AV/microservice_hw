@@ -1,14 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: srv1
-  labels:
-    run: srv1
+  name: srv1-service
 spec:
   selector:
-    run: srv1
+    app: srv1
   ports:
-    - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      - port: 8000
+        targetPort: 8000
   type: ClusterIP

@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "18e2fce7-8706-4911-916d-e358c3d67018",
+		"name": "Arch.Micro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39133717"
+	},
+	"item": [
+		{
+			"name": "hw3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/health",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
