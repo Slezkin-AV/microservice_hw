@@ -5,6 +5,14 @@
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
+configmap:
+  test_config: 10
+
+secret:
+  type: Opaque
+  username: YWRtaW4K
+  password: cGFzc2FkbWluCg==
+
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: nginx
@@ -121,3 +129,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
