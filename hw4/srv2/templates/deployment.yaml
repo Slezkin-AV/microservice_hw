@@ -66,3 +66,27 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        - name: {{ .Chart.Name }}-{{ .Values.postgress.pg_name }}
+          image: "{{ .Values.postgress.image }}"
+          environment:
+            POSTGRES_DB: {{ .Values.postgress.postgres_db }}
+            POSTGRES_USER: {{ .Values.secret.username }}
+            POSTGRES_PASSWORD: {{ .Values.secret.password }}
+            PGDATA: {{ .Values.postgress.pgdata }}
+          ports:
+            - name: http
+              port: {{ .Values.postgress.pg_port }}
+              targetPort: {{ .Values.postgress.pg_port }}
+              containerPort: {{ .Values.postgress.pg_port }}
+              protocol: TCP
+
+        - name: adminer
+          image: "adminer"
+          restart: always
+          ports:
+          - name: http
+            port: 8080
+            targetPort: 8080
+            containerPort: 80
+            protocol: TCP
+  # adminer

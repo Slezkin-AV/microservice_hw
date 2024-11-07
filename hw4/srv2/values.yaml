@@ -6,12 +6,20 @@
 replicaCount: 1
 
 configmap:
-  test_config: 10
+  test_config: abc
 
 secret:
   type: Opaque
   username: YWRtaW4K
   password: cGFzc2FkbWluCg==
+
+postgress:
+  pg_name: db
+  image: postgres
+  postgres_db: hw4_db
+  pgdata: /var/lib/postgresql/data/pgdata
+  pg_port: 5432
+
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
