@@ -5,8 +5,18 @@
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
-configmap:
-  test_config: abc
+global:
+  auth:
+    POSTGRES_PASSWORD: ""
+    postgresPassword: ""
+    username: ""
+    password: ""
+    database: ""
+    existingSecret: ""
+    secretKeys:
+      adminPasswordKey: ""
+      userPasswordKey: ""
+      replicationPasswordKey: ""
 
 secret:
   type: Opaque
@@ -16,9 +26,11 @@ secret:
 postgress:
   pg_name: db
   image: postgres
-  postgres_db: hw4_db
   pgdata: /var/lib/postgresql/data/pgdata
   pg_port: 5432
+  postgres_db: hw4_db
+  postgres_user: admin
+  postgres_password: passadmin
 
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
