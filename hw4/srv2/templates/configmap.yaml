@@ -9,3 +9,21 @@ data:
   POSTGRES_USER: {{ .Values.postgress.postgres_user }}
   POSTGRES_PASSWORD: {{ .Values.postgress.postgres_password }}
   PGDATA: {{ .Values.postgress.pgdata }}
+
+  spring.datasource.url: {{ .Values.spring.datasource_url }}
+  spring.datasource.username: admin
+  spring.datasource.password: passadmin
+  jakarta.persistence.jdbc.url: {{ .Values.spring.jdbc_url }}
+
+  # This will drop any table in the database and create new ones base on the models
+  spring.jpa.hibernate.ddl-auto: create-drop
+  # update
+  # none
+
+#  spring:
+#    datasource:
+#      url: jdbc:postgresql://localhost:5432/postgres
+#      driver-class-name: org.postgresql.Driver
+#    jpa:
+#      hibernate:
+#        ddl-auto=create-drop:

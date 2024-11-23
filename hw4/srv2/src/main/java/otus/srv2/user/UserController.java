@@ -49,6 +49,15 @@ public class UserController {
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
 
+    @GetMapping("/health/")
+    public String healthCheck(){
+        return "OK";
+    }
+
+    @GetMapping("/")
+    public String zeroPage(){
+        return "It's zero page. Use '/health/' path ";
+    }
     //    // Build Get All Users REST API
 //    // http://localhost:8080/api/users
 //    @GetMapping("/users")
