@@ -38,17 +38,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "srv2.fullname" . }}-config
-#          env:
-#              - name: username
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: {{ include "srv2.fullname" . }}-secret
-#                    key: spring.datasource.username
-#              - name: password
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: {{ include "srv2.fullname" . }}-secret
-#                    key: spring.datasource.password
+          env:
+              - name: spring.datasource.username1
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "srv2.fullname" . }}-secret
+                    key: username
+              - name: spring.datasource.password1
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "srv2.fullname" . }}-secret
+                    key: password
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -85,17 +85,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "srv2.fullname" . }}-config
-#          env:
-#              - name: POSTGRES_USER
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: {{ include "srv2.fullname" . }}-secret
-#                    key: POSTGRES_USER
-#              - name: POSTGRES_PASSWORD
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: {{ include "srv2.fullname" . }}-secret
-#                    key: POSTGRES_PASSWORD
+          env:
+              - name: POSTGRES_USER1
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "srv2.fullname" . }}-secret
+                    key: POSTGRES_USER
+              - name: POSTGRES_PASSWORD1
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "srv2.fullname" . }}-secret
+                    key: POSTGRES_PASSWORD
           ports:
             - name: http
               containerPort: {{ .Values.postgress.pg_port }}
