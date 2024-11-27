@@ -58,6 +58,22 @@ data:
   spring.jpa.hibernate.ddl-auto: create-drop
   # update
   # none
+  global.scrape_interval: "5s"
+    # By default, scrape targets every 15 seconds.
+
+    # Attach these labels to any time series or alerts when communicating with
+    # external systems (federation, remote storage, Alertmanager).
+  external_labels.monitor: 'codelab-monitor'
+
+  # A scrape configuration containing exactly one endpoint to scrape:
+  # Here it's Prometheus itself.
+#  scrape_configs:
+##    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+#    - job_name: 'price-service'
+#      scrape_interval: 5s
+#      metrics_path: '/actuator/prometheus'
+#      static_configs:
+#        - targets: [ 'host.docker.internal:8080' ]
 ---
 # Source: srv2/templates/service.yaml
 apiVersion: v1
@@ -133,7 +149,7 @@ spec:
                   secretKeyRef:
                     name: srv2-secret
                     key: password
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8000
@@ -168,12 +184,25 @@ spec:
             - name: http
               containerPort: 5432
               protocol: TCP
-        - name: adminer
-          image: "adminer"
+#        - name: adminer
+#          image: "adminer"
+#          ports:
+#          - name: http
+#            containerPort: 8080
+#            protocol: TCP
+        - name: prometheus
+          image: prom/prometheus
+          envFrom:
+            - configMapRef:
+                name: srv2-config
           ports:
-          - name: http
-            containerPort: 8080
-            protocol: TCP
+            - name: http
+              port: 9090
+              containerPort: 9090
+              protocol: TCP
+#            - 9090:9090
+#          volumes:
+#            - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
 ---
 # Source: srv2/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1

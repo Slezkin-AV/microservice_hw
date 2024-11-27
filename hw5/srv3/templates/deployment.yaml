@@ -100,9 +100,22 @@ spec:
             - name: http
               containerPort: {{ .Values.postgress.pg_port }}
               protocol: TCP
-        - name: adminer
-          image: "adminer"
+#        - name: adminer
+#          image: "adminer"
+#          ports:
+#          - name: http
+#            containerPort: 8080
+#            protocol: TCP
+        - name: prometheus
+          image: prom/prometheus
+          envFrom:
+            - configMapRef:
+                name: {{ include "srv2.fullname" . }}-config
           ports:
-          - name: http
-            containerPort: 8080
-            protocol: TCP
+            - name: http
+              port: 9090
+              containerPort: 9090
+              protocol: TCP
+#            - 9090:9090
+#          volumes:
+#            - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
