@@ -141,7 +141,13 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+volumes:
+  - name: config-volume
+    configMap:
+      name: srv2-config
+#  - name: config-volume
+#      configMap:
+#        name: prometheus-config
 # - name: foo
 #   secret:
 #     secretName: mysecret
@@ -149,6 +155,9 @@ volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: []
+#  - name: config-volume
+#    mountPath: /config
+
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true

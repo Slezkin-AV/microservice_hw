@@ -67,13 +67,14 @@ data:
 
   # A scrape configuration containing exactly one endpoint to scrape:
   # Here it's Prometheus itself.
-#  scrape_configs:
-##    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-#    - job_name: 'price-service'
-#      scrape_interval: 5s
-#      metrics_path: '/actuator/prometheus'
-#      static_configs:
-#        - targets: [ 'host.docker.internal:8080' ]
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  prometheus.yml: |
+    scrape_configs:
+      - job_name: 'srv2'
+        scrape_interval: 5s
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'localhost:8000' ]
 ---
 # Source: srv2/templates/service.yaml
 apiVersion: v1
@@ -96,7 +97,7 @@ spec:
     - port: 9093
       targetPort: 9000
       protocol: TCP
-      name: metrix
+      name: metrics
   selector:
     app.kubernetes.io/name: srv2
     app.kubernetes.io/instance: srv2
@@ -150,6 +151,8 @@ spec:
                     name: srv2-secret
                     key: password
           imagePullPolicy: IfNotPresent
+          args:
+            - "--config.file=/config/srv2-prometheus-config.yaml"
           ports:
             - name: http
               containerPort: 8000
@@ -184,22 +187,41 @@ spec:
             - name: http
               containerPort: 5432
               protocol: TCP
+        - name: prometheus
+          image: prom/prometheus:latest
+          envFrom:
+            - configMapRef:
+                name: srv2-config
+          args:
+            - --log.level=warn
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --web.enable-lifecycle
+          ports:
+            - containerPort: 9090
+              name: default
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+      volumes:
+        - configMap:
+            name: srv2-config
+          name: config-volume
 #        - name: adminer
 #          image: "adminer"
 #          ports:
 #          - name: http
 #            containerPort: 8080
 #            protocol: TCP
-        - name: prometheus
-          image: prom/prometheus
-          envFrom:
-            - configMapRef:
-                name: srv2-config
-          ports:
-            - name: http
-              port: 9090
-              containerPort: 9090
-              protocol: TCP
+#        - name: prometheus
+#          image: prom/prometheus
+#          envFrom:
+#            - configMapRef:
+#                name: srv2-config
+#          ports:
+#            - name: http
+#              port: 9090
+#              containerPort: 9090
+#              protocol: TCP
 #            - 9090:9090
 #          volumes:
 #            - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -242,6 +264,7 @@ metadata:
     app.kubernetes.io/instance: srv2
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
+#  namespace: monitoring
 spec:
   endpoints:
     - port: "9093"

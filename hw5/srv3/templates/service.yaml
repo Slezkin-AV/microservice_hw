@@ -14,6 +14,6 @@ spec:
     - port: {{ .Values.service.monitor_port }}
       targetPort: {{ .Values.service.metrix_port }}
       protocol: TCP
-      name: metrix
+      name: metrics
   selector:
     {{- include "srv2.selectorLabels" . | nindent 4 }}
