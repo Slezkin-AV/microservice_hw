@@ -51,7 +51,7 @@ spec:
                     key: password
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - "--config.file=/config/srv2-prometheus-config.yaml"
+            - "--config.file=/config/prometheus.yml"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
