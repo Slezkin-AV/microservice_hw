@@ -23,6 +23,10 @@ secret:
   username: YWRtaW4K
   password: cGFzc2FkbWluCg==
 
+grafana:
+  gf_user: admin
+  gf_password: admin
+
 postgress:
   pg_name: db
   image: postgres
@@ -41,7 +45,7 @@ image:
   repository: slezkin71/microservice
 #  repository: nginx
   # This sets the pull policy for images.
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 #  Always
 #  IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.

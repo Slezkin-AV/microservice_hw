@@ -10,6 +10,9 @@ data:
   POSTGRES_PASSWORD: {{ .Values.postgress.postgres_password }}
   PGDATA: {{ .Values.postgress.pgdata }}
 
+  GF_SECURITY_ADMIN_USER: {{ .Values.grafana.gf_user }}
+  GF_SECURITY_ADMIN_PASSWORD: {{ .Values.grafana.gf_password }}
+
   spring.datasource.url: {{ .Values.spring.datasource_url }}
   spring.datasource.username: {{ .Values.postgress.postgres_user }}
   spring.datasource.password: {{ .Values.postgress.postgres_password }}

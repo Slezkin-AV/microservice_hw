@@ -49,6 +49,9 @@ data:
   POSTGRES_PASSWORD: passadmin
   PGDATA: /var/lib/postgresql/data/pgdata
 
+  GF_SECURITY_ADMIN_USER: admin
+  GF_SECURITY_ADMIN_PASSWORD: admin
+
   spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
   spring.datasource.username: admin
   spring.datasource.password: passadmin
@@ -160,7 +163,7 @@ spec:
                   secretKeyRef:
                     name: srv2-secret
                     key: password
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           args:
             - "--config.file=/config/prometheus.yml"
           ports:
@@ -212,6 +215,14 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
+        - name: grafana
+          image: grafana/grafana:main
+          envFrom:
+            - configMapRef:
+                name: srv2-config
+          ports:
+            - containerPort: 3000
+              name: default
       volumes:
         - configMap:
             name: srv2-config

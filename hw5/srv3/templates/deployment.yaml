@@ -101,6 +101,14 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
+        - name: grafana
+          image: grafana/grafana:main
+          envFrom:
+            - configMapRef:
+                name: {{ include "srv2.fullname" . }}-config
+          ports:
+            - containerPort: 3000
+              name: default
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

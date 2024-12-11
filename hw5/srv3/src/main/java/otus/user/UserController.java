@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
     // build create User REST API
-    @Timed("create_user")
+    @Timed(value="user.create.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @PostMapping("/user")
     public ResponseEntity<UserDto> createUser(@RequestBody User user){
         UserDto savedUser = userService.createUser(user);
@@ -28,6 +28,7 @@ public class UserController {
 
     // build get user by id REST API
     // http://localhost:8080/api/users/1
+    @Timed(value="user.find.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
         UserDto user = userService.getUser(userId);
@@ -35,6 +36,7 @@ public class UserController {
     }
 
     // Build Update User REST API
+    @Timed(value="user.update.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @PutMapping("/user/{id}")
     // http://localhost:8080/api/users/1
     public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
@@ -45,12 +47,14 @@ public class UserController {
     }
 
     // Build Delete User REST API
+    @Timed(value="user.delete.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @DeleteMapping("/user/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId){
         userService.deleteUser(userId);
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
 
+    @Timed("user.health_check.time")
     @GetMapping("/health/")
     public String healthCheck(){
         return "OK";
