@@ -1,5 +1,7 @@
 package otus.user;
 
+import java.util.Random;
+
 public class UserMapper {
 
     // Convert User JPA Entity into UserDto
@@ -10,6 +12,15 @@ public class UserMapper {
                 user.getLastName(),
                 user.getEmail()
         );
+        //случайное замедление
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000);  // вернёт случайное число от 0 до 999
+        try{
+            Thread.sleep(100 + randomNumber);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } //конец случайного замедления
+
         return userDto;
     }
 

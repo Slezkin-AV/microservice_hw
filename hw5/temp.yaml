@@ -148,7 +148,7 @@ spec:
         - name: srv2
           securityContext:
             {}
-          image: "slezkin71/microservice:srv3_2"
+          image: "slezkin71/microservice:srv3_3"
           envFrom:
             - configMapRef:
                 name: srv2-config
