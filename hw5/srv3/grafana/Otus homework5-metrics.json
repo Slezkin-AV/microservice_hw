@@ -35,7 +35,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -145,7 +145,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -162,7 +162,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -179,7 +179,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -196,7 +196,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -217,7 +217,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -327,7 +327,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -344,7 +344,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -361,7 +361,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -378,7 +378,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -399,7 +399,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -509,7 +509,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -526,7 +526,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -543,7 +543,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -560,7 +560,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -581,7 +581,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -691,7 +691,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -708,7 +708,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -725,7 +725,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -742,7 +742,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -781,7 +781,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ee6s5q6s5fc3kd"
+        "uid": "ee6ta3z6j162of"
       },
       "fieldConfig": {
         "defaults": {
@@ -866,7 +866,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -886,7 +886,7 @@
     },
     {
       "datasource": {
-        "uid": "ee6s5q6s5fc3kd"
+        "uid": "ee6ta3z6j162of"
       },
       "fieldConfig": {
         "defaults": {
@@ -971,7 +971,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -991,7 +991,7 @@
     },
     {
       "datasource": {
-        "uid": "ee6s5q6s5fc3kd"
+        "uid": "ee6ta3z6j162of"
       },
       "fieldConfig": {
         "defaults": {
@@ -1083,7 +1083,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1099,7 +1099,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1115,7 +1115,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1131,7 +1131,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1161,7 +1161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1239,7 +1239,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "expr": "up{application=\"$application\",instance=\"$instance\"}",
               "format": "time_series",
@@ -1253,7 +1253,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1316,7 +1316,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "expr": "process_uptime_seconds{application=\"$application\", instance=\"$instance\"}",
               "format": "time_series",
@@ -1330,7 +1330,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1415,7 +1415,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1436,7 +1436,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1520,7 +1520,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
@@ -1533,7 +1533,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
@@ -1546,7 +1546,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "expr": "histogram_quantile(0.5, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
               "format": "time_series",
@@ -1561,7 +1561,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1643,7 +1643,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1664,7 +1664,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6s5q6s5fc3kd"
+            "uid": "ee6ta3z6j162of"
           },
           "fieldConfig": {
             "defaults": {
@@ -1743,7 +1743,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6s5q6s5fc3kd"
+                "uid": "ee6ta3z6j162of"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1792,7 +1792,7 @@
           "text": "",
           "value": ""
         },
-        "datasource": "ee6s5q6s5fc3kd",
+        "datasource": "ee6ta3z6j162of",
         "includeAll": false,
         "label": "Application",
         "name": "application",
@@ -1807,7 +1807,7 @@
           "text": "localhost:8000",
           "value": "localhost:8000"
         },
-        "datasource": "ee6s5q6s5fc3kd",
+        "datasource": "ee6ta3z6j162of",
         "includeAll": false,
         "label": "instance",
         "name": "instance",

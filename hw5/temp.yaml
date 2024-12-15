@@ -87,7 +87,134 @@ data:
         scrape_interval: 5s
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: [ 'localhost:8000' ]
+          - targets: [ 'localhost:8000']
+    
+      - job_name: 'srv2-ingress'
+        honor_timestamps: true
+        scrape_interval: 5s
+        scrape_timeout: 1m
+        metrics_path: '/actuator/prometheus' #'/metrics'
+        scheme: http
+        static_configs:
+          - targets: [srv2-ingress.default.svc.cluster.local:8000]
+    
+
+  alertmanager.yml: |
+    
+    global:
+      # The smarthost and SMTP sender used for mail notifications.
+      smtp_smarthost: 'localhost:25'
+      smtp_from: 'alertmanager@example.org'
+
+    # The root route on which each incoming alert enters.
+    route:
+      
+      receiver: 'team-X-mails'
+
+      group_by: ['alertname', 'cluster']
+      group_wait: 30s
+      group_interval: 5m
+
+      repeat_interval: 3h
+
+      # All the above attributes are inherited by all child routes and can
+      # overwritten on each.
+
+      # The child route trees.
+      routes:
+      # This route performs a regular expression match on alert labels to
+      # catch alerts that are related to a list of services.
+      - matchers:
+        - service=~"^(srv2)$"
+        receiver: team-X-mails
+
+
+        routes:
+        - matchers:
+          - severity="critical"
+          receiver: team-X-pager
+
+      - matchers:
+        - service="files"
+        receiver: team-Y-mails
+
+        routes:
+        - matchers:
+          - severity="critical"
+          receiver: team-Y-pager
+
+      # This route handles all alerts coming from a database service. If there's
+      # no team to handle it, it defaults to the DB team.
+      - matchers:
+        - service="database"
+
+        receiver: team-DB-pager
+        # Also group alerts by affected database.
+        group_by: [alertname, cluster, database]
+
+        routes:
+        - matchers:
+          - owner="team-X"
+          receiver: team-X-pager
+
+        - matchers:
+          - owner="team-Y"
+          receiver: team-Y-pager
+
+    inhibit_rules:
+    - source_matchers:
+        - severity="critical"
+      target_matchers:
+        - severity="warning"
+      equal: ['alertname']
+
+    receivers:
+    - name: 'team-X-mails'
+      email_configs:
+      - to: 'team-X+alerts@example.org, team-Y+alerts@example.org'
+
+    - name: 'team-X-pager'
+      email_configs:
+      - to: 'team-X+alerts-critical@example.org'
+      pagerduty_configs:
+      - routing_key: <team-X-key>
+
+    - name: 'team-Y-mails'
+      email_configs:
+      - to: 'team-Y+alerts@example.org'
+
+    - name: 'team-Y-pager'
+      pagerduty_configs:
+      - routing_key: <team-Y-key>
+
+    - name: 'team-DB-pager'
+      pagerduty_configs:
+      - routing_key: <team-DB-key>
+---
+# Source: srv2/templates/service-ingress.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv2-ingress
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9901
+      protocol: TCP
+      name: metrics
+  selector:
+    app: controller-nginx-ingress
+#    - port: 8000
+#      targetPort: http
+#      protocol: TCP
+#      name: ingress-prometheus
 ---
 # Source: srv2/templates/service.yaml
 apiVersion: v1
@@ -215,6 +342,20 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
+        - name: alertmanager
+          image: prom/alertmanager:latest
+          envFrom:
+            - configMapRef:
+                name: srv2-config
+          args:
+            - --log.level=warn
+            - --config.file=/etc/alertmanager/alertmanager.yml
+          ports:
+            - containerPort: 9093
+              name: default
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/alertmanager
         - name: grafana
           image: grafana/grafana:main
           envFrom:

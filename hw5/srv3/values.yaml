@@ -97,6 +97,10 @@ service:
   monitor_port: 9093
   namespace: default
 
+ingress_prometheus:
+  port: 80
+  target_port: 9901
+
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: true

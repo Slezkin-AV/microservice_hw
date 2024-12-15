@@ -101,6 +101,20 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
+        - name: alertmanager
+          image: prom/alertmanager:latest
+          envFrom:
+            - configMapRef:
+                name: {{ include "srv2.fullname" . }}-config
+          args:
+            - --log.level=warn
+            - --config.file=/etc/alertmanager/alertmanager.yml
+          ports:
+            - containerPort: 9093
+              name: default
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/alertmanager
         - name: grafana
           image: grafana/grafana:main
           envFrom:
