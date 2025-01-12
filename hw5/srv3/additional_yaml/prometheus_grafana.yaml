@@ -1,0 +1,48 @@
+apiVersion: v1
+items:
+- apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: kube-prometheus-stack
+      meta.helm.sh/release-namespace: monitoring
+    creationTimestamp: "2024-12-22T19:33:46Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/instance: kube-prometheus-stack
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 11.4.0
+      helm.sh/chart: grafana-8.8.2
+    name: kube-prometheus-stack-grafana
+    namespace: monitoring
+    resourceVersion: "264677"
+    uid: 092a1a80-6872-4f79-a3d4-1007323c531b
+  spec:
+    ingressClassName: nginx
+    rules:
+    - host: grafana.localdev.me
+      http:
+        paths:
+        - backend:
+            service:
+              name: kube-prometheus-stack-grafana
+              port:
+                number: 80
+          path: /
+          pathType: Prefix
+    - host: prometheus.localdev.me
+      http:
+        paths:
+        - backend:
+            service:
+              name: kube-prometheus-stack-prometheus
+              port:
+                number: 80
+          path: /
+          pathType: Prefix  
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

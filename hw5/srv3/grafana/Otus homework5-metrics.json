@@ -1,4 +1,14 @@
 {
+	  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -35,7 +45,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -145,7 +155,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -162,7 +172,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -179,7 +189,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -196,7 +206,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -217,7 +227,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -327,7 +337,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -344,7 +354,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -361,7 +371,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -378,7 +388,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -399,7 +409,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -509,7 +519,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -526,7 +536,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -543,7 +553,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -560,7 +570,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -581,7 +591,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -691,7 +701,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -708,7 +718,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -725,7 +735,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -742,7 +752,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -781,7 +791,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ee6ta3z6j162of"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -866,7 +876,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -886,7 +896,7 @@
     },
     {
       "datasource": {
-        "uid": "ee6ta3z6j162of"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -971,7 +981,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -991,7 +1001,7 @@
     },
     {
       "datasource": {
-        "uid": "ee6ta3z6j162of"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1083,7 +1093,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1099,7 +1109,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1115,7 +1125,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1131,7 +1141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1161,7 +1171,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1239,7 +1249,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "up{application=\"$application\",instance=\"$instance\"}",
               "format": "time_series",
@@ -1253,7 +1263,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1316,7 +1326,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "process_uptime_seconds{application=\"$application\", instance=\"$instance\"}",
               "format": "time_series",
@@ -1330,7 +1340,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1415,7 +1425,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1436,7 +1446,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1520,7 +1530,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
@@ -1533,7 +1543,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
@@ -1546,7 +1556,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "histogram_quantile(0.5, sum(rate(http_server_requests_seconds_bucket{application=\"$application\", instance=\"$instance\"}[1m])) by (le))",
               "format": "time_series",
@@ -1561,7 +1571,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1643,7 +1653,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1664,7 +1674,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ee6ta3z6j162of"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1743,7 +1753,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ee6ta3z6j162of"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1792,7 +1802,7 @@
           "text": "",
           "value": ""
         },
-        "datasource": "ee6ta3z6j162of",
+        "datasource": "${DS_PROMETHEUS}",
         "includeAll": false,
         "label": "Application",
         "name": "application",
@@ -1807,7 +1817,7 @@
           "text": "localhost:8000",
           "value": "localhost:8000"
         },
-        "datasource": "ee6ta3z6j162of",
+        "datasource": "${DS_PROMETHEUS}",
         "includeAll": false,
         "label": "instance",
         "name": "instance",

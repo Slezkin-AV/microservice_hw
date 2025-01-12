@@ -4,6 +4,11 @@ metadata:
   name: {{ include "srv2.fullname" . }}
   labels:
     {{- include "srv2.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: srv2
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,7 +17,7 @@ spec:
       protocol: TCP
       name: http
     - port: {{ .Values.service.monitor_port }}
-      targetPort: {{ .Values.service.metrix_port }}
+      targetPort: {{ .Values.service.metrics_port }}
       protocol: TCP
       name: metrics
   selector:

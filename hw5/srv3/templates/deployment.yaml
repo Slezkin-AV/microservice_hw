@@ -50,8 +50,6 @@ spec:
                     name: {{ include "srv2.fullname" . }}-secret
                     key: password
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args:
-            - "--config.file=/config/prometheus.yml"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -86,43 +84,6 @@ spec:
             - name: http
               containerPort: {{ .Values.postgress.pg_port }}
               protocol: TCP
-        - name: prometheus
-          image: prom/prometheus:latest
-          envFrom:
-            - configMapRef:
-                name: {{ include "srv2.fullname" . }}-config
-          args:
-            - --log.level=warn
-            - --config.file=/etc/prometheus/prometheus.yml
-            - --web.enable-lifecycle
-          ports:
-            - containerPort: 9090
-              name: default
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/prometheus
-        - name: alertmanager
-          image: prom/alertmanager:latest
-          envFrom:
-            - configMapRef:
-                name: {{ include "srv2.fullname" . }}-config
-          args:
-            - --log.level=warn
-            - --config.file=/etc/alertmanager/alertmanager.yml
-          ports:
-            - containerPort: 9093
-              name: default
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/alertmanager
-        - name: grafana
-          image: grafana/grafana:main
-          envFrom:
-            - configMapRef:
-                name: {{ include "srv2.fullname" . }}-config
-          ports:
-            - containerPort: 3000
-              name: default
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
@@ -139,22 +100,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-#        - name: adminer
-#          image: "adminer"
-#          ports:
-#          - name: http
-#            containerPort: 8080
-#            protocol: TCP
-#        - name: prometheus
-#          image: prom/prometheus
-#          envFrom:
-#            - configMapRef:
-#                name: {{ include "srv2.fullname" . }}-config
-#          ports:
-#            - name: http
-#              port: 9090
-#              containerPort: 9090
-#              protocol: TCP
-#            - 9090:9090
-#          volumes:
-#            - ./config/prometheus.yml:/etc/prometheus/prometheus.yml

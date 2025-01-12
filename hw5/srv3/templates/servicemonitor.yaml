@@ -4,7 +4,8 @@ metadata:
   name: {{ include "srv2.fullname" . }}-monitor
   labels:
     {{- include "srv2.labels" . | nindent 4 }}
-#  namespace: monitoring
+#    release: kube-prometheus-stack
+  namespace: monitoring
 spec:
   endpoints:
     - port: "{{ .Values.service.monitor_port }}"
@@ -14,6 +15,8 @@ spec:
   selector:
     matchLabels:
       {{- include "srv2.selectorLabels" . | nindent 6 }}
+      release: kube-prometheus-stack
+      app.kubernetes.io/part-of: srv2
   namespaceSelector:
     matchNames:
       - {{ .Values.service.namespace }}
