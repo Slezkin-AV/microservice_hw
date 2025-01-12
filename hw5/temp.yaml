@@ -1,0 +1,260 @@
+---
+# Source: srv2/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: srv2
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: srv2/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: srv2-secret
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  username: YWRtaW4K
+  password: cGFzc2FkbWluCg==
+  POSTGRES_USER: YWRtaW4K
+  POSTGRES_PASSWORD: cGFzc2FkbWluCg==
+  spring.datasource.username: YWRtaW4K
+  spring.datasource.password: cGFzc2FkbWluCg==
+---
+# Source: srv2/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srv2-config
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  POSTGRES_DB: hw4_db
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: passadmin
+  PGDATA: /var/lib/postgresql/data/pgdata
+
+
+  spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
+  spring.datasource.username: admin
+  spring.datasource.password: passadmin
+  jakarta.persistence.jdbc.url: jdbc:postgresql://localhost:5432/public/
+
+  # This will drop any table in the database and create new ones base on the models
+  spring.jpa.hibernate.ddl-auto: create-drop
+  # update
+  # none
+---
+# Source: srv2/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv2
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: srv2
+  annotations:
+    prometheus.io/port: metrics
+    prometheus.io/scrape: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 9093
+      targetPort: 9000
+      protocol: TCP
+      name: metrics
+  selector:
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+---
+# Source: srv2/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srv2
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: srv2
+      app.kubernetes.io/instance: srv2
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /srv2/actuator/prometheus
+        prometheus.io/port: "8000"
+        prometheus.io/scrape: "true"
+      labels:
+        helm.sh/chart: srv2-0.1.0
+        app.kubernetes.io/name: srv2
+        app.kubernetes.io/instance: srv2
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: srv2
+      securityContext:
+        {}
+      containers:
+        - name: srv2
+          securityContext:
+            {}
+          image: "slezkin71/microservice:srv3_3"
+          envFrom:
+            - configMapRef:
+                name: srv2-config
+          env:
+              - name: spring.datasource.username1
+                valueFrom:
+                  secretKeyRef:
+                    name: srv2-secret
+                    key: username
+              - name: spring.datasource.password1
+                valueFrom:
+                  secretKeyRef:
+                    name: srv2-secret
+                    key: password
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health/
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health/
+              port: http
+          resources:
+            {}
+        - name: srv2-db
+          image: "postgres"
+          envFrom:
+            - configMapRef:
+                name: srv2-config
+          env:
+              - name: POSTGRES_USER1
+                valueFrom:
+                  secretKeyRef:
+                    name: srv2-secret
+                    key: POSTGRES_USER
+              - name: POSTGRES_PASSWORD1
+                valueFrom:
+                  secretKeyRef:
+                    name: srv2-secret
+                    key: POSTGRES_PASSWORD
+          ports:
+            - name: http
+              containerPort: 5432
+              protocol: TCP
+      volumes:
+        - configMap:
+            name: srv2-config
+          name: config-volume
+---
+# Source: srv2/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: srv2-ingress
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "srv2.localdev.me"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: srv2
+                port:
+                  number: 8000
+---
+# Source: srv2/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: srv2-monitor
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+#    release: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  endpoints:
+    - port: "9093"
+      scheme: http
+      path: /metrics
+      interval: 60s
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: srv2
+      app.kubernetes.io/instance: srv2
+      release: kube-prometheus-stack
+      app.kubernetes.io/part-of: srv2
+  namespaceSelector:
+    matchNames:
+      - default
+---
+# Source: srv2/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "srv2-test-connection"
+  labels:
+    helm.sh/chart: srv2-0.1.0
+    app.kubernetes.io/name: srv2
+    app.kubernetes.io/instance: srv2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['srv2:8000']
+  restartPolicy: Never

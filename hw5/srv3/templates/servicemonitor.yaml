@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "srv2.fullname" . }}-monitor
+  labels:
+    {{- include "srv2.labels" . | nindent 4 }}
+#    release: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  endpoints:
+    - port: "{{ .Values.service.monitor_port }}"
+      scheme: http
+      path: /metrics
+      interval: 60s
+  selector:
+    matchLabels:
+      {{- include "srv2.selectorLabels" . | nindent 6 }}
+      release: kube-prometheus-stack
+      app.kubernetes.io/part-of: srv2
+  namespaceSelector:
+    matchNames:
+      - {{ .Values.service.namespace }}
