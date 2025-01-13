@@ -1,0 +1,221 @@
+---
+# Source: publisher/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: publisher
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: publisher/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: publisher-config
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  POSTGRES_DB: publisher
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: passadmin
+  PGDATA: /var/lib/postgresql/data/pgdata
+
+
+  spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
+  spring.datasource.username: admin
+  spring.datasource.password: passadmin
+  jakarta.persistence.jdbc.url: jdbc:postgresql://localhost:5432/public/
+
+  # This will drop any table in the database and create new ones base on the models
+  spring.jpa.hibernate.ddl-auto: create-drop
+  # update
+  # none
+---
+# Source: publisher/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: publisher
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    prometheus.io/port: metrics
+    prometheus.io/scrape: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 9093
+      targetPort: 9000
+      protocol: TCP
+      name: metrics
+  selector:
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+---
+# Source: publisher/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publisher
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: publisher
+      app.kubernetes.io/instance: publisher
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: publisher-0.1.0
+        app.kubernetes.io/name: publisher
+        app.kubernetes.io/instance: publisher
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: publisher
+      securityContext:
+        {}
+      containers:
+        - name: publisher
+          securityContext:
+            {}
+          image: "slezkin71/microservice:publisher_v1"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: publisher-config
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health/
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {}
+        - name: publisher-db
+          image: "postgres"
+          envFrom:
+            - configMapRef:
+                name: publisher-config
+#          env:
+#              - name: POSTGRES_USER1
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: publisher-secret
+#                    key: POSTGRES_USER
+#                - name: POSTGRES_PASSWORD1
+#                  valueFrom:
+#                    secretKeyRef:
+#                      name: publisher-secret
+#                      key: POSTGRES_PASSWORD
+          ports:
+            - name: http
+              containerPort: 5432
+              protocol: TCP
+---
+# Source: publisher/templates/ingress-auth.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: publisher-auth
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    nginx.ingress.kubernetes.io/auth-response-headers: UserID, authorization
+    nginx.ingress.kubernetes.io/auth-url: http://publisher.pub.svc.cluster.local:8000/validate
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "publisher.localdev.me"
+      http:
+        paths:
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: publisher
+                port:
+                  number: 8000
+---
+# Source: publisher/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: publisher
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "publisher.localdev.me"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: publisher
+                port:
+                  number: 8000
+---
+# Source: publisher/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "publisher-test-connection"
+  labels:
+    helm.sh/chart: publisher-0.1.0
+    app.kubernetes.io/name: publisher
+    app.kubernetes.io/instance: publisher
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['publisher:8000']
+  restartPolicy: Never
