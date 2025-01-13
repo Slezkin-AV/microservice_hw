@@ -1,4 +1,4 @@
-package otus;
+package otus.exception;
 
 public class SrvErrorResponce {
 

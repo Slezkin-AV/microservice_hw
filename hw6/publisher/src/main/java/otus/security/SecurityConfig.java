@@ -1,17 +1,15 @@
-package otus;
+package otus.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Slf4j
 @Configuration
@@ -21,15 +19,19 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        log.info("OK");
         http
                 .csrf(csrf -> csrf.disable())
-//                .cors(cors -> cors.disable()) // Disable CORS
+                .cors(cors -> cors.disable()) // Disable CORS
                 .authorizeHttpRequests(request -> request
-                .anyRequest().permitAll()
+                        .requestMatchers("/register","/validate","/health/", "/", "/login", "/actuator/**").permitAll()
+                        .requestMatchers("/user/*").authenticated()
+                        .anyRequest().authenticated()
                 )
-//                .httpBasic(Customizer.withDefaults())
-//                .securityMatcher("/user/{userId}/**")
+//                .securityMatcher("/register*","/validate*","/health/").
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .securityMatcher("/user/**")
         ;
 //        http.addFilterAfter(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

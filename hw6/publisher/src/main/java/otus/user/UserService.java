@@ -1,19 +1,22 @@
 package otus.user;
 
-import org.springframework.security.access.prepost.PostAuthorize;
-import otus.SrvException;
+import lombok.extern.slf4j.Slf4j;
+import otus.exception.SrvException;
 import otus.jwt.JwtRequest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import otus.security.SrvPrincipalExtractor;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserServiceInterface {
 
     private final UserRepositoryInterface userRepository;
+    private final SrvPrincipalExtractor srvPrincipalExtractor;
 
 //    @Autowired
 //    public UserService(UserRepositoryInterface userRepository){
@@ -56,6 +59,8 @@ public class UserService implements UserServiceInterface {
 //    @PostAuthorize("returnedObject.userId == principal.userId")
     public UserDto getUser(Long userId){
         User usr = userRepository.findById(userId).orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_FOUND));
+        String loggedUser = srvPrincipalExtractor.getUser();
+        log.info("Get: logged {}, login {}", loggedUser, usr.getLogin());
         return UserMapper.mapToUserDto(usr);
     }
 

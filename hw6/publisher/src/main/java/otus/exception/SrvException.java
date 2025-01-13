@@ -1,4 +1,4 @@
-package otus;
+package otus.exception;
 
 import lombok.Getter;
 import otus.user.UserErrorType;
