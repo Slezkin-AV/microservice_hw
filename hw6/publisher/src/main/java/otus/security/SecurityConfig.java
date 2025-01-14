@@ -9,7 +9,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
 
 @Slf4j
 @Configuration
@@ -27,13 +36,16 @@ public class SecurityConfig  {
                         .requestMatchers("/user/*").authenticated()
                         .anyRequest().authenticated()
                 )
-//                .securityMatcher("/register*","/validate*","/health/").
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .securityMatcher("/user/**")
+//                .securityContext(AbstractHttpConfigurer::disable)
+//                .securityContext(Customizer.withDefaults())
+                .securityMatcher("/user/*")
         ;
+//        http.addFilterAfter(new AuditInterceptor(), AnonymousAuthenticationFilter.class);
 //        http.addFilterAfter(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class);
+//        AnonymousAuthenticationFilter
         return http.build();
     }
 

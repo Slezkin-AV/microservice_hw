@@ -24,7 +24,7 @@ public class UserService implements UserServiceInterface {
 //    }
 
     @Override
-    public UserDto registerUser(User user){
+    public UserDto registerUser(UserPub user){
         if( user.getLogin() == null || user.getLogin().isEmpty()){throw new SrvException(UserErrorType.ERR_LOGIN_EMPTY);}
         if( user.getEmail() ==null || user.getEmail().isEmpty()){throw new SrvException(UserErrorType.ERR_EMAIL_EMPTY);}
         if( !userRepository.findByEmail(user.getEmail()).isEmpty() ){throw new SrvException(UserErrorType.ERR_EMAIL_DUBLICATE);}
@@ -33,10 +33,10 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public User loginUser(JwtRequest request){
-        List<User> lst = userRepository.findByLogin(request.getLogin());
+    public UserPub loginUser(JwtRequest request){
+        List<UserPub> lst = userRepository.findByLogin(request.getLogin());
         if(lst.isEmpty() ){throw new SrvException(UserErrorType.ERR_NOT_FOUND);}
-        User usr = lst.get(0);
+        UserPub usr = lst.get(0);
         if( usr.getPassword() != null && request.getPassword() != null){ //сравнение если оба не null
             if (!(usr.getPassword().equals(request.getPassword()))) {
                 throw new SrvException(UserErrorType.ERR_INCORRECT_PASSWORD);
@@ -50,24 +50,24 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public UserDto createUser(User user){
-        User usr = userRepository.save(user);
+    public UserDto createUser(UserPub user){
+        UserPub usr = userRepository.save(user);
         return UserMapper.mapToUserDto(userRepository.save(user));
     }
 
     @Override
 //    @PostAuthorize("returnedObject.userId == principal.userId")
     public UserDto getUser(Long userId){
-        User usr = userRepository.findById(userId).orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_FOUND));
+        UserPub usr = userRepository.findById(userId).orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_FOUND));
         String loggedUser = srvPrincipalExtractor.getUser();
         log.info("Get: logged {}, login {}", loggedUser, usr.getLogin());
         return UserMapper.mapToUserDto(usr);
     }
 
     @Override
-    public UserDto updateUser(Long userId, User user){
+    public UserDto updateUser(Long userId, UserPub user){
         if( user.getEmail() ==null || user.getEmail().isEmpty()){throw new SrvException(UserErrorType.ERR_EMAIL_EMPTY);}
-        User usr = userRepository.findById(userId).orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_FOUND));
+        UserPub usr = userRepository.findById(userId).orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_FOUND));
 
         usr.setFirstName(user.getFirstName());
         usr.setLastName(user.getLastName());

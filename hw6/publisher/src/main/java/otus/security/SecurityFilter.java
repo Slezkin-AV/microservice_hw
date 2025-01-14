@@ -23,18 +23,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//        log.info("request headers: {}", request.getContextPath()); // all requests are logging including `/generate/a` or `/validate/1`
-//        log.info("request path: {}", request.getQueryString());
-//        String username = request.getHeader("X-Username");
 
-//        log.info("request {} : {}",
-//                request.getMethod(),
-//                request.getRequestURI());
-//        request.getHeaderNames().asIterator().forEachRemaining(s -> log.info(s, request.getHeader(s)));
-//        log.info("request token: {}",request.getHeader("Authorization"));
-//        log.info("request user: {}",request.getRemoteUser());
-//        log.info("request headers: {}",request.getHeaderNames());
-//        log.info("request Principal: {}",request.getUserPrincipal());
+        log.info("{} : {}, Principal: {}, Auth: {}",
+                request.getMethod(),
+                request.getRequestURI(),
+                request.getUserPrincipal(),
+                request.getHeader("Authorization"));
+
         filterChain.doFilter(request, response);
     }
 

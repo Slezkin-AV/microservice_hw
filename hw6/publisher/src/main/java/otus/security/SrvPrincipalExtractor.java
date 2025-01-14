@@ -24,7 +24,9 @@ public class SrvPrincipalExtractor{//} implements PrincipalExtractor {
 //    }
 
     public String getUser(){
-        Object principal = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        Object principal = Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .map(Principal::getName)
                 .orElseThrow(() -> new SrvException(UserErrorType.ERR_NOT_LOGGED));
         String username = principal.toString();
         if (principal instanceof UserDetails) {
@@ -32,8 +34,6 @@ public class SrvPrincipalExtractor{//} implements PrincipalExtractor {
         }
         log.info("Got principal: {}", username);
         return username;
-//        SecurityContext sec =
-//        SecurityContextHolder::getContext() getAuthentication
-//            .getAuthentication()::Principal::getName());
+
     }
 }

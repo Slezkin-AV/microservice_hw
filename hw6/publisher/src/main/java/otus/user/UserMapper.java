@@ -5,7 +5,7 @@ import java.util.Random;
 public class UserMapper {
 
     // Convert User JPA Entity into UserDto
-    public static UserDto mapToUserDto(User user) {
+    public static UserDto mapToUserDto(UserPub user) {
         UserDto userDto = new UserDto(
                 user.getId(),
                 user.getFirstName(),
@@ -27,8 +27,8 @@ public class UserMapper {
     }
 
     // Convert UserDto into User JPA Entity
-    public static User mapToUser(UserDto userDto) {
-        User user = new User(
+    public static UserPub mapToUser(UserDto userDto) {
+        UserPub user = new UserPub(
                 userDto.getId(),
                 userDto.getFirstName(),
                 userDto.getLastName(),

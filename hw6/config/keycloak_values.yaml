@@ -1,4 +1,0 @@
-# auth: adminPassword: "password"
-ingress:
-  enabled: "true"
-  hostname: "keycloak.localdev.me"

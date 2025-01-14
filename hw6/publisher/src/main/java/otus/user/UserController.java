@@ -1,15 +1,20 @@
 package otus.user;
 
 import io.micrometer.core.annotation.Timed;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import otus.jwt.JwtService;
 import otus.jwt.JwtRequest;
 import otus.jwt.JwtResponce;
+
+import java.security.Principal;
 
 
 @Slf4j
@@ -29,7 +34,7 @@ public class UserController {
 
     //register
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody User user){
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserPub user){
         UserDto savedUser = userService.registerUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -38,17 +43,27 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<JwtResponce> loginUser(
             @RequestBody JwtRequest request){
-        User savedUser = userService.loginUser(request);
+        UserPub savedUser = userService.loginUser(request);
         JwtResponce responce = new JwtResponce(savedUser.getId(),jwtService.generateAccessToken(savedUser));
         return new ResponseEntity<>(responce, HttpStatus.CREATED);
     }
 
     @Timed(value="user.create.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @PostMapping("/user")
-    public ResponseEntity<UserDto> createUser(@RequestBody User user){
+    public ResponseEntity<UserDto> createUser(@RequestBody UserPub user){
         UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+//
+//    @GetMapping("/user")
+//    public String getUser(@AuthenticationPrincipal UserDetails userDetails) {
+//        return userDetails.getUsername();
+//    }
+//    @GetMapping(value = "/username")
+//    public String currentUserNameSimple(HttpServletRequest request) {
+//        Principal principal = request.getUserPrincipal();
+//        return principal.getName();
+//    }
 
     @Timed(value="user.find.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @GetMapping("/user/{id}")
@@ -70,7 +85,7 @@ public class UserController {
     @Timed(value="user.update.time",description="time to create users",percentiles={0.5,0.95,0.99})
     @PutMapping("/user/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
-                                              @RequestBody User user){
+                                              @RequestBody UserPub user){
 //        user.setId(userId);
         UserDto updatedUser = userService.updateUser(userId,user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);

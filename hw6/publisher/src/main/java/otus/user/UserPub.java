@@ -16,7 +16,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @Entity
 @Table(schema = "public")
-public class User{//} implements UserDetails {
+public class UserPub {//} implements UserDetails {
     @Id
     private Long id;
     private String firstName;

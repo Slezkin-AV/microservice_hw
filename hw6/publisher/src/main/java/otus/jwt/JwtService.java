@@ -7,7 +7,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import otus.user.User;
+import otus.user.UserPub;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -33,7 +33,7 @@ public class JwtService {
         jwtAccessSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtAccessSecretCoded));
     }
 
-    public String generateAccessToken(@NonNull User user) {
+    public String generateAccessToken(@NonNull UserPub user) {
         final LocalDateTime now = LocalDateTime.now();
         final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
